@@ -66,9 +66,8 @@ This builds the `spmv` executable.
 
 - For each row $r$, accumulate:
 
- ![equation](https://latex.codecogs.com/svg.latex?%5Ctext%7Bsum%7D%20%3D%20%5Csum_%7Bk%3D%5Ctext%7Brow_ptr%7D%5Br%5D%7D%5E%7B%5Ctext%7Brow_ptr%7D%5Br%2B1%5D-1%7D%20%5Ctext%7Bval%7D%5Bk%5D%20%5Ccdot%20x%5B%5Ctext%7Bcol_idx%7D%5Bk%5D%5D)
-
-
+  sum = Σ (from k = row_ptr[r] to row_ptr[r+1] - 1) val[k] * x[col_idx[k]]
+ 
   then write $y[r] = \text{sum}$.
 
 ## 7) What the parallel code should do (`spmv_parallel.cpp`)
