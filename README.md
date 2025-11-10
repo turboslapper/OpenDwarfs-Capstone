@@ -27,12 +27,12 @@ This repository provides a **truncated version of OpenDwarfs** (full version: [O
 
 # Objectives
 
-**Required objectives:**  
+**Minimum Requirements: **  
 For each dwarf, the code to be parallelized is located in `<programname>_parallel.cpp` inside the directory for that dwarf.  
 - If working in groups of three, parallelize **all six workloads** (two dwarfs to be parallelized by each team member).  
 - Use OpenMP to parallelize the workload in `<programname>_parallel.cpp` adding appropriate OpenMP pragma directives.  
 
-**Additional objectives** (not necessarily in order of relevance; you may pick any one or more that you find interesting):  
+**Additional objectives to get a better grade** (not necessarily in order of relevance; you may pick any one or more that you find interesting):  
 1. Pick one dwarf out of the six and attempt to optimize the code beyond what is achieved by the initial placement of OpenMP directives. Your approach may include modifications to the code, algorithm, data structure, the way the workload is parallelized, or any combination of these changes. (Example: assign threads to nonzero elements in SPMV using a COO data structure instead of row-centric parallelism with CSR.)  
 2. Use **OpenACC** to offload the computation to a GPU. Parallelize `<dwarf>_parallel.cpp` using OpenACC and evaluate runtimes on `glogin` GPU nodes. Compare CPU (OpenMP) vs GPU (OpenACC) performance and analyze the results.  
 3. Use **OpenMP 4.5** to offload computation to a GPU. Compare performance between CPU (OpenMP) and GPU (OpenMP offload), and optionally vs GPU (OpenACC). Comment on the relative difficulty/ease of programming with the different frameworks.  
