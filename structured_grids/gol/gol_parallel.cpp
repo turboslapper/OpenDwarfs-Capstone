@@ -12,6 +12,7 @@ void gol_parallel(bool* cells, int n, int m, int iterations, int nthreads) {
     bool* temp;
 
     for(t = 0; t < iterations; ++t) {
+        #pragma omp parallel for schedule(static) num_threads(nthreads) private(j, neighbors)
         for(i = 0; i < n; ++i) {
             for(j = 0; j < m; ++j) {
                 
@@ -47,6 +48,7 @@ void gol_parallel(bool* cells, int n, int m, int iterations, int nthreads) {
     }
 
     if(iterations % 2) {
+        #pragma omp parallel for schedule(static) num_threads(nthreads) private(j)
         for(i = 0; i < n; ++i) {
             for(j = 0; j < m; ++j) {
                 cells_new[i * m + j] = cells[i * m + j];
