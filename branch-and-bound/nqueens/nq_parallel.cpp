@@ -1,6 +1,6 @@
 #include <cstdint>
 #include <vector>
-
+#include <omp.h>
 /*
 ==============================================================
  N-Queens (Serial) — Clear, Loop-Only, Bit-Mask Implementation
@@ -91,7 +91,7 @@ static std::uint64_t count_with_first_row_fixed(int N, int r0)
     std::uint64_t solutions = 0;
     int i = 1; // current column (1..N-1)
 
-    while (i >= 1) {
+    while (i >= 1) { //this loop is unparallelizable
         // ns: next available row bit for column i.
         // (ms[i] + 1ULL) finds the lowest zero bit; & ~ms[i] keeps only that bit.
         std::uint64_t m  = ms[i];
@@ -133,8 +133,19 @@ std::uint64_t count_nqueens_parallel(int n)
     std::uint64_t total = 0;
 
     // NQ outler loop
-    for (int r0 = 0; r0 < n; ++r0) {
-        total += count_with_first_row_fixed(n, r0);
+    if (n <= 8)
+    {
+        for (int r0 = 0; r0 < n; ++r0) {
+            total += count_with_first_row_fixed(n, r0);
+        }
+    }
+    else
+    {
+        //#pragma omp parallel for reduction(+:total) schedule(static)
+        #pragma acc parallel loop reduction(+:total)
+        for (int r0 = 0; r0 < n; ++r0) {
+            total += count_with_first_row_fixed(n, r0);
+        }
     }
     return total;
 }
