@@ -1,8 +1,8 @@
 # Makefile
 CXX       ?= g++
-CXXFLAGS  ?= -O3 -std=c++17 -Wall -Wextra -pedantic
+CXXFLAGS  ?= -O3 -std=c++17 -Wall -Wextra -pedantic -fopenmp
 # If you're on GCC 8, you may need: make LIBS=-lstdc++fs
-LIBS      ?=
+LIBS      ?= -fopenmp
 
 SRCS = main.cpp bfs_serial.cpp bfs_parallel.cpp
 OBJS = $(SRCS:.cpp=.o)
