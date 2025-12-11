@@ -6,7 +6,7 @@
 - Runs **y = A · x** with `x` initialized to ones (double precision). **A** is a square matrix with **n** rows, represented using compressed sparse row format. **x and y** are 1-D vectors of lenght **n** 
 - Two implementations:
   - `spmv_serial`: single-thread CSR SPMV (plain C-like loops).
-  - `spmv_parallel`: same logic for now; accepts `nthreads` so students can parallelize later (OpenMP target).
+  - `spmv_parallel`: same logic for now; accepts `nthreads` so students can parallelize later (OpenMP target)..
 - Timing measures **only** the SPMV kernel (not file I/O or CSR build).
 
 ## 2) Get the data

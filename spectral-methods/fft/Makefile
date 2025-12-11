@@ -1,6 +1,8 @@
-CXX      := g++
-CXXFLAGS := -g -O3 -std=c++17
-LDFLAGS  := 
+#CXX      := nvc++
+#CXXFLAGS := -acc -gpu=cuda12.3 -O3
+CXX := g++
+CXXFLAGS := -O3 -std=c++17 -fopenmp -Wall -Wextra
+LDFLAGS  :=
 
 # sources and target
 SRC      := main.cpp fft_serial.cpp fft_parallel.cpp

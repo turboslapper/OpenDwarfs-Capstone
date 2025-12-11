@@ -8,37 +8,40 @@
 #
 # Note: On very old GCC (e.g., 8.x), you may need:  make LIBS=-lstdc++fs
 
-CXX       ?= g++
-CXXFLAGS  ?= -O3 -std=c++17 -Wall -Wextra -pedantic
-LDFLAGS   ?=
-LIBS      ?=
+CXX       = g++
+CXXFLAGS  = -O3 -std=c++17 -Wall -Wextra -pedantic -fopenmp
+LDFLAGS   = -fopenmp
 
-SRCS = main.cpp spmv_serial.cpp spmv_parallel.cpp
-OBJS = $(SRCS:.cpp=.o)
-BIN  = spmv
+TARGET = spmv
+OBJS = main.o spmv_serial.o spmv_parallel.o
 
-all: $(BIN)
+all: $(TARGET)
 
-$(BIN): $(OBJS)
-	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
+$(TARGET): $(OBJS)
+	$(CXX) $(LDFLAGS) -o $(TARGET) $(OBJS)
 
-%.o: %.cpp
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+main.o: main.cpp
+	$(CXX) $(CXXFLAGS) -c main.cpp -o main.o
 
-run-c: $(BIN)
-	./$(BIN) -c
+spmv_serial.o: spmv_serial.cpp
+	$(CXX) $(CXXFLAGS) -c spmv_serial.cpp -o spmv_serial.o
 
-run-p: $(BIN)
-	./$(BIN) -p
+spmv_parallel.o: spmv_parallel.cpp
+	$(CXX) $(CXXFLAGS) -c spmv_parallel.cpp -o spmv_parallel.o
 
-run-both: $(BIN)
-	./$(BIN) -c -p
+run-c: $(TARGET)
+	./$(TARGET) -c
+
+run-p: $(TARGET)
+	./$(TARGET) -p
+
+run-both: $(TARGET)
+	./$(TARGET) -c -p
 
 download:
 	bash scripts/get_data.sh
 
 clean:
-	rm -f $(OBJS) $(BIN)
+	rm -f $(OBJS) $(TARGET)
 
 .PHONY: all run-c run-p run-both download clean
-
