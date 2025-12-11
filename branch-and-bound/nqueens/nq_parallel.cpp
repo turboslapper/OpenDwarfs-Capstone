@@ -132,7 +132,7 @@ std::uint64_t count_nqueens_parallel(int n)
 
     std::uint64_t total = 0;
 
-    // SERIAL split by first column: try every r0 one by one (no threads).
+    // NQ outler loop
     for (int r0 = 0; r0 < n; ++r0) {
         total += count_with_first_row_fixed(n, r0);
     }
