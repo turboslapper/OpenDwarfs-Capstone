@@ -13,12 +13,41 @@ A C++ program that builds a dense matrix from a 3D 7‑point Laplacian discretiz
 
 ## Build
 
+### OpenMP Version
 ```bash
 make            # optimized default build
 make release    # force -O3 -march=native
 make debug      # -O0 with debug symbols
 make clean
 ```
+
+### OpenACC Version (GPU)
+
+**Prerequisites:**
+- NVIDIA HPC SDK or PGI compiler installed
+- CUDA-capable GPU
+
+
+1. **Load the compiler module** (if on a cluster):
+   ```bash
+   module load nvhpc
+   # or
+   module load pgi
+   ```
+
+2. **Verify compiler is available**:
+   ```bash
+   nvc++ --version
+   # or
+   pgc++ --version
+   ```
+
+3. **Compile with OpenACC flags**:
+   ```bash
+   nvc++ -acc -Minfo=accel -O3 -std=c++11 \
+         main.cpp lud_serial.cpp lud_parallel.cpp \
+         -o lud
+   ```
 
 The Makefile builds `lud` from `main.cpp`, `lud_serial.cpp`, and `lud_parallel.cpp`.
 

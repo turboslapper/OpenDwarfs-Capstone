@@ -50,10 +50,42 @@ config/               # Example input configurations (glider, pulsar, etc.)
 
 ---
 
-## Compilation
-Use `Make` to compile, add `-fopenmp` in provide makefile when compiling parallel code:
+## Build
 
-To run:
+### OpenMP Version (CPU)
+```bash
+make           
+make clean
+```
+
+### OpenACC Version (GPU)
+
+**Prerequisites:**
+- NVIDIA HPC SDK or PGI compiler installed
+- CUDA-capable GPU
+
+**Step-by-step build:**
+
+1. **Load the compiler module** (if on a cluster):
+   ```bash
+   module load nvhpc
+   # or
+   module load pgi
+   ```
+
+2. **Verify compiler is available**:
+   ```bash
+   nvc++ --version
+   # or
+   pgc++ --version
+   ```
+
+3. **Compile with OpenACC flags**:
+   ```bash
+   nvc++ -acc -Minfo=accel -O3 -std=c++11 \
+         gameoflife.cpp gol_serial.cpp gol_parallel.cpp \
+         -o gameoflife
+   ```
 
 - **Correctness tests:**
   ```bash
@@ -65,9 +97,6 @@ To run:
   ./gameoflife -p
   ```
 ---
-
-## What to Parallelize
- Parallelize the computation in `gol_parallel.cpp`. Identify appropriate target loops for parallelization.
 
 ---
 
