@@ -19,7 +19,6 @@ double bfs_parallel(const int* row_ptr, const int* col_idx,
   std::vector<int> updating_mask_v(n, 0);
   std::vector<int> visited_v(n, 0);
 
-  // IMPORTANT: use raw pointers for device code + atomics
   int* graph_mask    = graph_mask_v.data();
   int* updating_mask = updating_mask_v.data();
   int* visited       = visited_v.data();
