@@ -2,8 +2,7 @@
 #include <cstdint>
 #include <omp.h>
 #include <cstdio>
-//
-// Intentionally identical to serial; students will parallelize later.
+
 //openACC solution:
 /**void fft_parallel(float* __restrict real_op,
                   float* __restrict imag_op,
@@ -20,7 +19,6 @@
     #pragma acc data copyin(real_weight[0:N/2], imag_weight[0:N/2]) copy(real_op[0:N], imag_op[0:N])
     for (int j = 0; j < iters; ++j)  //can't parallelize here becuase each iteration depends on previous one
     {
-        //#pragma acc data copyin(real_weight[0:N/2], imag_weight[0:N/2]) copy(real_op[0:N], imag_op[0:N])
         #pragma acc parallel loop present(real_weight[0:N/2], imag_weight[0:N/2], real_op[0:N], imag_op[0:N])
         for (int i = 0; i < N; ++i)
         {
@@ -52,7 +50,8 @@
         a >>= 1;
     }
 }**/
-//openMP solution (not ACC)
+
+//openMP solution
 #include <cstddef>
 #include <cstdint>
 #include <omp.h>

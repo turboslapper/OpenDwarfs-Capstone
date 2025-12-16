@@ -143,7 +143,6 @@ std::uint64_t count_nqueens_parallel(int n)
     else
     {
         #pragma omp parallel for reduction(+:total) schedule(dynamic)
-        //#pragma acc parallel loop reduction(+:total)
         for (int r0 = 0; r0 < n; ++r0) {
             total += count_with_first_row_fixed(n, r0);
         }
