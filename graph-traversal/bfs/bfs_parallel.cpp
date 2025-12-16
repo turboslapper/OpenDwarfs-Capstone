@@ -63,7 +63,7 @@ double bfs_parallel(const int* row_ptr, const int* col_idx,
       }
     }
 
-    // Merge local buffers (sequential merge is usually fine vs edge traversal cost)
+    // Merge local buffers (sequential merge is usually fine vs edge traversal cost i think)
     size_t total = 0;
     for(const auto &buf : local_next) total += buf.size();
 
