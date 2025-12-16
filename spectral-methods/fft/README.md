@@ -8,6 +8,24 @@ This code implements a **radix-2 FFT** with bit-reversal
 
 ---
 
+## How to run
+To run in OpenACC:
+1) go into the make file and ensure
+CXX      := nvc++
+CXXFLAGS := -acc -gpu=cuda12.3 -O3
+are uncommented and that the other CXX and CXXFLAGS are commented out
+2) go into fft_parallel.cpp, there you should see //openACC solution on line 6. Ensure that the lines after that are uncommented out, and that the OpenMP code (lines 54-end) are commented out
+3) run make clean then make
+4) ./fft_app -c or ./fft_app -p
+
+To run in OpenMP:
+1) go into the make file and ensure
+CXX      := g++
+CXXFLAGS := -O3 -std=c++17 -fopenmp -Wall -Wextra
+are uncommented and that the other CXX and CXXFLAGS are commented out
+2) go into fft_parallel.cpp, there you should see //openMP solution on line 54. Ensure that the lines after that are uncommented out, and that the OpenACC code (lines 7-52) are commented out
+3) run make clean then make
+4) ./fft_app -c or ./fft_app -p
 ## Input Signal
 
 For size *N*, the input is:  

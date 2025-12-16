@@ -11,6 +11,25 @@ The program can:
 - Benchmark the code for `n ∈ {8,10,12,14,15}` with threads `{1,2,4,8,16,32}`.
 - Write results to `../output/results.csv` (directory auto-created).
 
+## How to run
+To run in OpenACC:
+1) go into the make file and ensure
+CXX      := nvc++
+CXXFLAGS := -acc -gpu=cuda12.3 -O3
+are uncommented and that the other CXX and CXXFLAGS are commented out
+2) go into nq_parallel.cpp, there you should see //openACC solution on line 153. Ensure that the lines after that are uncommented out, and that the OpenMP code (lines 70-151) are commented out
+3) run make clean then make
+4) ./nq -c or ./nq -p
+
+To run in OpenMP:
+1) go into the make file and ensure
+CXX      := g++
+CXXFLAGS := -O3 -std=c++17 -fopenmp -Wall -Wextra
+are uncommented and that the other CXX and CXXFLAGS are commented out
+2) go into nq_parallel.cpp, there you should see //openMP solution on line 70. Ensure that the lines after that are uncommented out, and that the OpenACC code (lines 153-end) are commented out
+3) run make clean then make
+4) ./nq -c or ./nq -p
+
 ## Build
 ```bash
 make 

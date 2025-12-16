@@ -7,7 +7,7 @@
 #include <iomanip>
 #include <filesystem>
 #include <omp.h>
-
+//
 // Forward declarations; implementations live in nq_serial.cpp / nq_parallel.cpp
 std::uint64_t count_nqueens_serial(int n);
 std::uint64_t count_nqueens_parallel(int n);
