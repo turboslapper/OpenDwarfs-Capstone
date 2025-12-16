@@ -52,11 +52,6 @@
 }**/
 
 //openMP solution
-#include <cstddef>
-#include <cstdint>
-#include <omp.h>
-#include <cstdio>
-
 // Intentionally identical to serial; students will parallelize later.
 void fft_parallel(float* __restrict real_op,
                   float* __restrict imag_op,
